@@ -1,30 +1,28 @@
-const trigger = document.getElementById('play-trigger');
-const video = document.getElementById('intro-video');
 const introScreen = document.getElementById('intro-screen');
+const video = document.getElementById('intro-video');
 const bgMusic = document.getElementById('bg-music');
 
-trigger.addEventListener('click', () => {
-  // 1. إخفاء الزرار فور الضغط
-  trigger.style.display = 'none';
+// تحميل مبدئي للفيديو
+window.addEventListener('load', () => {
+  if (video) video.load();
+});
 
-  // 2. تشغيل فيديو الستارة (صامت ومضمون العرض على الموبايل)
+// الضغط في أي مكان على شاشة الانترو يشغل الفيديو والأغنية
+introScreen.addEventListener('click', () => {
+  // 1. تشغيل الفيديو
   if (video) {
     video.muted = true;
     video.play().catch(e => console.log("Video error:", e));
   }
 
-  // 3. تشغيل الصوت بطريقة متوافقة مع الموبايل
+  // 2. تشغيل الأغنية من الدقيقة 0:51
   if (bgMusic) {
-    // تشغيل أولاً لفك حظر المتصفح للموبايل
     bgMusic.play().then(() => {
-      // تقديم الصوت للدقيقة 0:51 بعد بدء التشغيل بنجاح
       bgMusic.currentTime = 49;
-    }).catch(e => {
-      console.log("Audio playback error:", e);
-    });
+    }).catch(e => console.log("Audio error:", e));
   }
 
-  // 4. عند انتهاء الفيديو تختفي شاشة الانترو وتستمر الأغنية
+  // 3. اختفاء الانترو عند انتهاء الفيديو
   if (video) {
     video.onended = () => {
       introScreen.style.display = 'none';
