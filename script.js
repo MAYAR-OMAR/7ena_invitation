@@ -7,24 +7,31 @@ trigger.addEventListener('click', () => {
   // 1. إخفاء الزرار فور الضغط
   trigger.style.display = 'none';
 
-  // 2. ضبط بداية الأغنية من الدقيقة 0:51 وتشغيلها
-  if (bgMusic) {
-    bgMusic.currentTime = 49; // التقديم للدقيقة 0:51 (51 ثانية)
-    bgMusic.play().catch(e => console.log("Audio play error:", e));
+  // 2. تشغيل فيديو الستارة (صامت ومضمون العرض على الموبايل)
+  if (video) {
+    video.muted = true;
+    video.play().catch(e => console.log("Video error:", e));
   }
 
-  // 3. تشغيل فيديو الستارة
-  if (video) {
-    video.play().catch(e => console.log("Video play error:", e));
+  // 3. تشغيل الصوت بطريقة متوافقة مع الموبايل
+  if (bgMusic) {
+    // تشغيل أولاً لفك حظر المتصفح للموبايل
+    bgMusic.play().then(() => {
+      // تقديم الصوت للدقيقة 0:51 بعد بدء التشغيل بنجاح
+      bgMusic.currentTime = 49;
+    }).catch(e => {
+      console.log("Audio playback error:", e);
+    });
   }
 
   // 4. عند انتهاء الفيديو تختفي شاشة الانترو وتستمر الأغنية
-  video.onended = () => {
-    introScreen.style.display = 'none';
-    document.body.classList.remove('curtain-active');
-  };
+  if (video) {
+    video.onended = () => {
+      introScreen.style.display = 'none';
+      document.body.classList.remove('curtain-active');
+    };
+  }
 });
-
 // 2. تشغيل العداد التنازلي
 const eventDate = new Date("2026-10-15T20:00:00").getTime();
 
