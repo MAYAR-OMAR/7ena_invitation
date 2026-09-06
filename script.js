@@ -48,3 +48,18 @@ const timerInterval = setInterval(() => {
   document.getElementById("minutes").innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
   document.getElementById("seconds").innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
 }, 1000);
+
+// عند انتهاء الفيديو تختفي شاشة الانترو ويبدأ السكرول التلقائي
+video.onended = () => {
+  introScreen.style.display = 'none';
+  document.body.classList.remove('curtain-active');
+
+  // سكرول تلقائي ناعم لأول قسم بعد الانترو
+  const mainContent = document.getElementById('main-content'); // أو اسم السكشن الأول عندك
+  if (mainContent) {
+    mainContent.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start' 
+    });
+  }
+};
