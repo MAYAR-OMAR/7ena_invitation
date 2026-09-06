@@ -1,0 +1,389 @@
+/* الخلفية العامة للموقع كله */
+body {
+  margin: 0;
+  padding: 0;
+  background: url('./bg-image.jfif') no-repeat center center fixed; /* حطي اسم خلفية الـ body هنا */
+  background-size: cover;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+}
+
+/* قفل السكرول طول ما الانترو شغال */
+body.curtain-active {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
+/* 1. تنسيق شاشة الانترو والستائر */
+#intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.curtain {
+  position: absolute;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  background-color: transparent; /* لون الستارة أو خلفية الستارة */
+  transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 1;
+}
+
+.curtain-left { left: 0; }
+.curtain-right { right: 0; }
+
+/* حركة فتح الستار */
+#intro-screen.open .curtain-left { transform: translateX(-100vw); }
+#intro-screen.open .curtain-right { transform: translateX(100vw); }
+#intro-screen.open .video-wrapper { opacity: 0; transition: opacity 0.4s ease; }
+
+.video-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 85%;
+  max-width: 380px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.video-wrapper video {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.play-btn {
+  margin-top: 15px;
+  padding: 12px 25px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 30px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+/* 2. تنسيق المحتوى الرئيسي والصفحات */
+#main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  gap: 40px;
+}
+
+/* الصفحة الأولى */
+.card-container {
+  width: 100%;
+  max-width: 420px;
+}
+
+.responsive-card {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+/* الصفحة الثانية: العداد والتفاصيل */
+.details-section {
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  color: #4a1525;
+}
+
+.lights-header {
+  width: 100%;
+  line-height: 0;
+}
+
+.lights-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.countdown-wrapper h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: #611224; /* أحمر عنابي دافئ */
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.time-box {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(139, 26, 54, 0.2);
+  padding: 10px;
+  border-radius: 12px;
+  min-width: 60px;
+  backdrop-filter: blur(4px);
+}
+
+.time-box span {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #8b1a36; /* رقم عنابي شيك */
+}
+
+.time-box label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #555;
+  font-weight: 600;
+}
+
+.info-item {
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #3b111c;
+}
+
+.map-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 30px;
+  background: linear-gradient(135deg, #8b1a36 0%, #540b1e 100%);
+  color: #f7e7ce;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(84, 11, 30, 0.3);
+}
+
+/* شاشة الانترو الشاملة */
+#intro-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: transparent; /* إلغاء أي خلفية خلف الستارة */
+}
+
+/* شاشة الانترو بالكامل تأخذ صورتك كخلفية بدلاً من الأسود */
+#intro-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  /* حطي مسار الصورة الأساسية بتاعتك هنا */
+  background: url('./bg-image.jfif') no-repeat center center / cover;
+  overflow: hidden;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* تمديد فيديو الستارة ليمسح أي حواف سوداء تماماً */
+#intro-video {
+  width: 100%;
+  height: 100%;
+  /* fill بتضمن إن الفيديو يمط وياخد كامل العرض والارتفاع بدون مساحات فارغة */
+  object-fit: fill; 
+  display: block;
+}
+
+/* الزرار في المنتصف */
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 14px 32px;
+  background:transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+
+
+
+/* حاوية صفحة الرقص */
+.dancer-section {
+  width: 100%;
+  max-width: 420px;
+  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.dancer-wrapper {
+  position: relative;
+  width: 280px; /* اضبطي العرض حسب ما تحبي */
+  height: 420px;
+}
+
+.dancer-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.15s ease-in-out; /* تبديل سريع وسلس */
+}
+
+/* الانيميشن للتبديل بين الصورة الشمال واليمين */
+.dancer-left {
+  animation: danceFrameA 0.8s infinite alternate ease-in-out;
+}
+
+.dancer-right {
+  animation: danceFrameB 0.8s infinite alternate ease-in-out;
+}
+
+/* حركة الصورة الأولى */
+@keyframes danceFrameA {
+  0%, 45% {
+    opacity: 1;
+    transform: rotate(-2deg) scale(1);
+  }
+  55%, 100% {
+    opacity: 0;
+    transform: rotate(2deg) scale(1.02);
+  }
+}
+
+/* حركة الصورة الثانية (عكس الأولى) */
+@keyframes danceFrameB {
+  0%, 45% {
+    opacity: 0;
+    transform: rotate(-2deg) scale(1.02);
+  }
+  55%, 100% {
+    opacity: 1;
+    transform: rotate(2deg) scale(1);
+  }
+}
+
+
+/* الحاوية الأساسية */
+.dancer-section {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* يمنع ظهور سكرول أفقي بسبب الورد */
+}
+
+/* تنسيق الورد العام */
+.side-rose {
+  position: absolute;
+  width: 90px; /* اضبطي الحجم المناسب */
+  height: auto;
+  z-index: 5;
+  pointer-events: none; /* عشان ما تعطلش التفاعل مع أي عنصر */
+}
+
+/* وردة اليمين ملاصقة للحافة اليمين */
+.rose-right-img {
+  right: -10px; /* لزق تام في اليمين */
+  top: 15%;
+  animation: floatRose 3s infinite ease-in-out alternate;
+}
+
+/* وردة الشمال ملاصقة للحافة الشمال */
+.rose-left-img {
+  left: -10px; /* لزق تام في الشمال */
+  bottom: 15%;
+  animation: floatRose 3.5s infinite ease-in-out alternate-reverse; /* توقيت مختلف خفيف للواقعية */
+}
+
+/* انيميشن الصعود وهبوط الورد بالراحة جداً */
+@keyframes floatRose {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-18px) rotate(4deg); /* حركة طفو ناعمة وفوق وتحت */
+  }
+}
+
+
+/* حاوية الجملة واليافطة */
+.quote-banner {
+  margin: 25px auto 10px;
+  padding: 16px 28px;
+  width: 85%;
+  max-width: 320px;
+  background: linear-gradient(145deg, #3a000c, #1f0006); /* عنابي داكن مثل اليافطة */
+  border: 2px solid #d4af37; /* إطار ذهبي */
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(212, 175, 55, 0.2);
+  text-align: center;
+  position: relative;
+  z-index: 6;
+}
+
+/* النص العربي */
+.quote-text {
+  color: #fff8e7;
+  font-family: 'Amiri', 'Cairo', serif, sans-serif; /* يفضل استدعاء خط عربي أنيق */
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* حاوية صفحة التقويم */
+.calendar-section {
+  width: 100%;
+  max-width: 420px;
+  margin: 30px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* جعل صورة التقويم تغطي الصفحة بالكامل */
+.calendar-card {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+ 
+}
